@@ -3,14 +3,9 @@ import { getBackendStatus } from '../services/api'
 import { useState } from 'react'
 
 export default function Home() {
-    const [backendMessage, setBackendMessage] = useState("")
     const [selectedFile, setSelectedFile] = useState("")
-    const [selectedFilesStatus, setSelectedFileStatus] = useState("")
+    const [analysis, setAnalysis] = useState(null)
     const[Error, setError] = useState("") 
-    const handleCheckBackend = async () => {
-    const result = await getBackendStatus()
-        setBackendMessage(result.message)
-    }
 
     const handleFileChange = (e) => {
         setSelectedFile(e.target.files[0])
@@ -18,11 +13,6 @@ export default function Home() {
 
     const handleUpload = async (e) => {
         e.preventDefault()
-
-        if (!selectedFile) {
-            setSelectedFileStatus("Select a File First")
-            return
-        }
 
         const formData = new FormData()
         formData.append("file", selectedFile)
@@ -34,33 +24,27 @@ export default function Home() {
             })
 
             const data = await response.json()
-            if (response.ok) {
-                setSelectedFileStatus(data.message)
-                setSelectedFileStatus(data.collection_name) 
+            setAnalysis(data) 
+            if (response.ok) { 
+                console.log(data);
             } else {
-                setStatus(data.error || 'Upload failed.')
+                console.log(data.error || 'Upload failed.')
             } 
             
         } catch (e) {
-            console.e('Error uploading file:', error)
-            setStatus('An error occurred during upload.')
+            console.error('Error uploading file:', e)
+            console.log('An error occurred during upload.')
         }
         
     }
 
     return (
         <div>
-            <h1>API-Lens</h1>
-            <button onClick={handleCheckBackend}>check backend</button>
-            <div>{backendMessage}</div>  
-
-            <div>
-                <form method='post' onSubmit={handleUpload}> 
+            <h1>API-Lens</h1>  
+            <div> 
                     <input type="file" onChange={handleFileChange} accept='.json' /> 
-                    <button type="submit">upload</button>
-                    {selectedFilesStatus && <p>{ selectedFilesStatus}</p>} 
-                </form>
-
+                    <button type="submit" onClick={handleUpload}>upload</button> 
+                    {analysis && <p>{analysis.collection.name}</p>} 
             </div>
 
     </div>

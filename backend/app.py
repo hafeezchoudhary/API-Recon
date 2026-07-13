@@ -21,10 +21,12 @@ def upload() :
     bytes_data = uploaded_file.read() 
     json_text = bytes_data.decode("utf-8")
     json_data = json.loads(json_text) 
+    print(collection_name) 
     if uploaded_file :
         return jsonify({
-            "message": f"{uploaded_file.filename}",
-            "collection_name": f"{json_data["info"]["name"]}",
+            "collection": {
+                "name": collection_name 
+            }
         })
 
 if __name__ == "__main__":

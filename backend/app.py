@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS 
+from analyzer.postman_analyzer import analyze_collection
 import json
 
 app = Flask(__name__)
@@ -19,15 +20,10 @@ def upload() :
 
     uploaded_file = request.files["file"] 
     bytes_data = uploaded_file.read() 
-    json_text = bytes_data.decode("utf-8")
+    json_text = bytes_data.decode("utf-8") 
     json_data = json.loads(json_text) 
-    print(collection_name) 
-    if uploaded_file :
-        return jsonify({
-            "collection": {
-                "name": collection_name 
-            }
-        })
+    analysis = analyze_collection(json_data)
+    return jsonify(analysis) 
 
 if __name__ == "__main__":
     app.run(debug=True)

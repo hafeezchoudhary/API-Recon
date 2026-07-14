@@ -44,7 +44,9 @@ export default function Home() {
             <div> 
                     <input type="file" onChange={handleFileChange} accept='.json' /> 
                     <button type="submit" onClick={handleUpload}>upload</button> 
-                    {analysis && <p>{analysis.collection.name}</p>} 
+                {analysis &&
+                    <p>{analysis.collection.name} <br /> {analysis.collection.schema} <br /> {analysis.collection.postman_id}</p>
+                } 
             </div>
 
     </div>

@@ -27,11 +27,6 @@ export default function Home() {
 
             const data = await response.json()
             setAnalysis(data) 
-            if (response.ok) { 
-                console.log(data);
-            } else {
-                console.log(data.error || 'Upload failed.')
-            } 
             
         } catch (e) {
             console.error('Error uploading file:', e)
@@ -47,7 +42,18 @@ export default function Home() {
                     <input type="file" onChange={handleFileChange} accept='.json' /> 
                     <button type="submit" onClick={handleUpload}>upload</button> 
                 {analysis &&
-                    <p>{analysis.collection.name} <br /> {analysis.collection.schema} <br /> {analysis.collection.postman_id}</p>
+                    <div>
+                        <h2>Collection Information</h2>
+                        <span>Name: </span>{analysis.collection.name} <br />
+                        <span>Schema: </span>{analysis.collection.schema} <br />
+                        <span>Postman_id: </span>{analysis.collection.postman_id} <br />
+
+                        <p>-----------------------------------------------------------------------------------</p>
+                        
+                        <h3>Summary</h3>
+                        <span>Total Requests: </span>{analysis.summary.total_requests} <br />
+                        <span>Total Folders: </span>{analysis.summary.total_folders}
+                    </div>
                 } 
             </div>
 

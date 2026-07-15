@@ -52,7 +52,14 @@ export default function Home() {
                         
                         <h3>Summary</h3>
                         <span>Total Requests: </span>{analysis.summary.total_requests} <br />
-                        <span>Total Folders: </span>{analysis.summary.total_folders}
+                        <span>Total Folders: </span>{analysis.summary.total_folders} 
+
+                        <h3>Methods</h3>
+                        <span>Get: </span>{analysis.methods.GET} <br />
+                        <span>Post: </span>{analysis.methods.POST} <br />
+                        <span>Put: </span>{analysis.methods.PUT} <br /> 
+                        <span>Delete: </span>{analysis.methods.DELETE} <br />
+                        <span>Patch: </span>{analysis.methods.PATCH} <br />
                     </div>
                 } 
             </div>

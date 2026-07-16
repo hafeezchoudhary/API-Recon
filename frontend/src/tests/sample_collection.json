@@ -1,79 +1,146 @@
 {
     "info": {
-        "name": "Sample API Collection",
+        "name": "APILens Master Collection",
         "_postman_id": "12345678-abcd-1234-abcd-123456789abc",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
-    "item": [
-        { 
-            "name": "Get Users",
-            "item": [
-                { 
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "https://api.example.com/users",
-                            "host": [
-                                "api",
-                                "example",
-                                "com"
-                            ],
-                            "path": [
-                                "users"
-                            ]
-                        }
-                    }
-                }
-            ],
-            "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                    "raw": "https://api.example.com/users",
-                    "host": [
-                        "api",
-                        "example",
-                        "com"
-                    ],
-                    "path": [
-                        "users"
-                    ]
-                }
-            }
-        },
-        {
-            "name": "Login",
-            "request": {
-                "method": "POST",
-                "header": [
-                    {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                    }
-                ],
-                "body": {
-                    "mode": "raw",
-                    "raw": "{ \"username\": \"admin\", \"password\": \"password\" }"
-                },
-                "url": {
-                    "raw": "https://api.example.com/login",
-                    "host": [
-                        "api",
-                        "example",
-                        "com"
-                    ],
-                    "path": [
-                        "login"
-                    ]
-                }
-            }
-        }
-    ],
     "variable": [
         {
             "key": "base_url",
             "value": "https://api.example.com"
+        },
+        {
+            "key": "api_key",
+            "value": "123456789"
+        }
+    ],
+    "item": [
+        {
+            "name": "Public APIs",
+            "item": [
+                {
+                    "name": "Get Users",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/users"
+                        }
+                    }
+                },
+                {
+                    "name": "Get Products",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/products"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{ \"username\": \"admin\", \"password\": \"password123\" }"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/login"
+                        }
+                    }
+                },
+                {
+                    "name": "Profile",
+                    "request": {
+                        "method": "GET",
+                        "auth": {
+                            "type": "bearer"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/profile"
+                        }
+                    }
+                },
+                {
+                    "name": "Update Profile",
+                    "request": {
+                        "method": "PUT",
+                        "auth": {
+                            "type": "bearer"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/profile"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "API Keys",
+            "item": [
+                {
+                    "name": "Get Metrics",
+                    "request": {
+                        "method": "GET",
+                        "auth": {
+                            "type": "apikey"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/metrics"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Admin",
+            "item": [
+                {
+                    "name": "Delete User",
+                    "request": {
+                        "method": "DELETE",
+                        "auth": {
+                            "type": "basic"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/users/1"
+                        }
+                    }
+                },
+                {
+                    "name": "Nested Folder",
+                    "item": [
+                        {
+                            "name": "Patch User",
+                            "request": {
+                                "method": "PATCH",
+                                "auth": {
+                                    "type": "oauth2"
+                                },
+                                "url": {
+                                    "raw": "{{base_url}}/users/1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

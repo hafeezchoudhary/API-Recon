@@ -22,7 +22,7 @@ def analyze_summary(json_data):
     analysis = {
         "summary": {
             "total_requests": 0,
-            "total_folders": 0
+            "total_folders": 0 
         },
         "methods": {
             "GET": 0,
@@ -37,7 +37,8 @@ def analyze_summary(json_data):
             "basic": 0,
             "oauth2": 0,
             "noauth": 0 
-        }
+        },
+        "endpoints": [],
     }
 
     items = json_data["item"]
@@ -51,6 +52,11 @@ def traverse_items(items, analysis):
         if "request" in item :
             analysis["summary"]["total_requests"] += 1 
             method = item["request"]["method"] 
+            url = item["request"]["url"]["raw"] 
+            analysis["endpoints"].append({
+                    "method": method,
+                    "url": url
+                }) 
             analysis["methods"][method] += 1
             request = item["request"]
             auth = request.get("auth") 
@@ -81,6 +87,6 @@ def analyze_variables(json_data):
         key = variable["key"]
         if key:
             analysis["variables"]["count"] += 1
-            analysis["variables"]["name"].append(key)
+            analysis["variables"]["name"].append(key) 
 
     return analysis 

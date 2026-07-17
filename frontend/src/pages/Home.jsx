@@ -77,7 +77,12 @@ export default function Home() {
                         <h3>Variables</h3>
                         <p>-----------------------</p>
                         <span>Total variables: </span>{analysis.variables.count} <br />
-                        <span>Keys: </span><br />{analysis.variables.name} <br />
+                        <span>Keys: </span><br />
+                        <ul>
+                            {analysis.variables.name.map((key) => (
+                                <li key={key}>{key}</li>
+                            ))}
+                        </ul>
 
 
                     </div>

@@ -22,7 +22,12 @@
                     "name": "Get Users",
                     "request": {
                         "method": "GET",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
                         "url": {
                             "raw": "{{base_url}}/users"
                         }

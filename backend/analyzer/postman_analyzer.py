@@ -39,6 +39,7 @@ def analyze_summary(json_data):
             "noauth": 0 
         },
         "endpoints": [],
+        "headers": {},
     }
 
     items = json_data["item"]
@@ -51,13 +52,26 @@ def traverse_items(items, analysis):
     for item in items : 
         if "request" in item :
             analysis["summary"]["total_requests"] += 1 
+
             method = item["request"]["method"] 
+            analysis["methods"][method] += 1
+
             url = item["request"]["url"]["raw"] 
             analysis["endpoints"].append({
-                    "method": method,
-                    "url": url
-                }) 
-            analysis["methods"][method] += 1
+                "method": method,
+                "url": url 
+            }) 
+            
+            headers = item["request"].get("header") 
+            if headers :
+                for header in headers :
+                    header_key = header["key"]
+                    if header_key in analysis["headers"] :
+                        analysis["headers"][header_key] += 1
+                    else :
+                        analysis["headers"][header_key] = 1 
+            
+
             request = item["request"]
             auth = request.get("auth") 
             if auth:

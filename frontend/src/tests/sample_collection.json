@@ -12,8 +12,12 @@
         {
             "key": "api_key",
             "value": "123456789"
+        },
+        {
+            "key": "access_token",
+            "value": "token123"
         }
-    ], 
+    ],
     "item": [
         {
             "name": "Public APIs",
@@ -40,6 +44,29 @@
                         "header": [],
                         "url": {
                             "raw": "{{base_url}}/products"
+                        }
+                    }
+                },
+                {
+                    "name": "Search Users",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{base_url}}/users?page=1&limit=10&sort=name",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "name"
+                                }
+                            ]
                         }
                     }
                 }
@@ -106,6 +133,12 @@
                         "auth": {
                             "type": "apikey"
                         },
+                        "header": [
+                            {
+                                "key": "X-API-Key",
+                                "value": "{{api_key}}"
+                            }
+                        ],
                         "url": {
                             "raw": "{{base_url}}/metrics"
                         }
@@ -142,6 +175,72 @@
                                     "raw": "{{base_url}}/users/1"
                                 }
                             }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Body Examples",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "username",
+                                    "value": "admin"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "password123"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/register"
+                        }
+                    }
+                },
+                {
+                    "name": "Upload Avatar",
+                    "request": {
+                        "method": "POST",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "avatar",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/upload"
+                        }
+                    }
+                },
+                {
+                    "name": "Secrets Endpoint",
+                    "request": {
+                        "method": "POST",
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{ \"token\": \"abc123\", \"secret\": \"xyz\", \"api_key\": \"123456\" }"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/secrets"
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "Success",
+                            "status": "OK",
+                            "code": 200,
+                            "body": "{ \"success\": true }"
                         }
                     ]
                 }

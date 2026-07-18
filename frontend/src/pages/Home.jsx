@@ -100,6 +100,14 @@ export default function Home() {
                             </div>
                         ))}
 
+                        <h3>Query parameters</h3>
+                        <p>-----------------------</p>
+                        {Object.entries(analysis.query_parameters).map(([key, value]) => (
+                            <div key={key}>
+                                {key} : {value}
+                            </div>
+                        ))}
+
 
                     </div>
                 } 

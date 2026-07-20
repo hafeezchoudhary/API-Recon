@@ -27,7 +27,7 @@ analysis = {
         "headers": {},
         "query_parameters": {},
         "sensitive_data": [],
-        
+        "response": [],
     }
 
 sensitive_keywords = [
@@ -72,6 +72,7 @@ def traverse_items(items, analysis):
 
     for item in items : 
         if "request" in item :
+            request = item["request"]
             analysis["summary"]["total_requests"] += 1 
 
             method = item["request"]["method"] 
@@ -86,12 +87,11 @@ def traverse_items(items, analysis):
             headers = item["request"].get("header") 
             if headers :
                 for header in headers :
-                    header_key = header["key"]
+                    header_key = header["key"] 
                     if header_key in analysis["headers"] :
                         analysis["headers"][header_key] += 1
                     else :
                         analysis["headers"][header_key] = 1 
-
                     if header_key.lower() in sensitive_keywords :
                         analysis["sensitive_data"].append(header_key)
 
@@ -107,7 +107,6 @@ def traverse_items(items, analysis):
                     if query_key.lower() in sensitive_keywords :
                         analysis["sensitive_data"].append(query_key)
             
-            request = item["request"]
             body = request.get("body") 
             if body :
                 raw = body.get("raw") 
@@ -125,6 +124,14 @@ def traverse_items(items, analysis):
                 analysis["authentication"][auth_type] += 1 
             else :
                 analysis["authentication"]["noauth"] += 1
+
+            response = item.get("response")
+            if response :
+                for res in response :
+                    analysis["response"].append({
+                        "status": res["status"],
+                        "code": res["code"],
+                    })  
 
 
         if "item" in item :

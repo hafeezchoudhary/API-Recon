@@ -18,13 +18,13 @@ def generate_report(analysis):
         Paragraph("Collection Information", styles["Heading2"])
     )
     elements.append(
-        Paragraph(analysis["collection"]["name"], styles["Normal"])
+        Paragraph(f"Name: {analysis["collection"]["name"]}", styles["Normal"])
     )
     elements.append(
-        Paragraph(analysis["collection"]["schema"], styles["Normal"])
+        Paragraph(f"Schema: {analysis["collection"]["schema"]}", styles["Normal"])
     )
     elements.append(
-        Paragraph(analysis["collection"]["postman_id"], styles["Normal"])
+        Paragraph(f"Postman ID: {analysis["collection"]["postman_id"]}", styles["Normal"])
     )
     elements.append(Spacer(1, 12))
 
@@ -85,7 +85,7 @@ def generate_report(analysis):
     for key in analysis["variables"]["name"]:
         elements.append(
             Paragraph(
-                f"{key}",
+                f"-{key}",
                 styles["Normal"]
             )
         )
@@ -154,7 +154,7 @@ def generate_report(analysis):
     for response in analysis["response"]:
         elements.append(
             Paragraph(
-                f"{response}",
+                f"{response["code"]} : {response["status"]}",
                 styles["Normal"]
             )
         )

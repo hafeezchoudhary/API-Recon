@@ -78,7 +78,7 @@ def traverse_items(items, analysis):
             analysis["summary"]["total_requests"] += 1 
 
             method = item["request"]["method"] 
-            analysis["methods"][method] += 1
+            analysis["methods"][method] += 1 
 
             url = item["request"]["url"]["raw"] 
             analysis["endpoints"].append({

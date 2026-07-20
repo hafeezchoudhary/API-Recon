@@ -1,6 +1,19 @@
 import json
 
-analysis = {
+sensitive_keywords = [
+        "password",
+        "token",
+        "access_token",
+        "secret",
+        "api_key",
+        "authorization",
+        "jwt"
+]
+
+
+def create_analysis() :
+    analysis = {
+        "collection": {},
         "summary": {
             "total_requests": 0,
             "total_folders": 0 
@@ -30,21 +43,11 @@ analysis = {
         "response": [],
     }
 
-sensitive_keywords = [
-        "password",
-        "token",
-        "access_token",
-        "secret",
-        "api_key",
-        "authorization",
-        "jwt"
-]
+    return analysis
 
 
-def analyze_collection(json_data) :
-    analysis = {
-        "collection": {},
-    }
+def analyze_collection(json_data, analysis) :
+
     if "info" not in json_data :
         return {
             "success": False,
@@ -60,8 +63,7 @@ def analyze_collection(json_data) :
     return analysis
 
 
-def analyze_summary(json_data):
-
+def analyze_summary(json_data, analysis):
     items = json_data["item"]
     traverse_items(items, analysis) 
     
@@ -141,8 +143,7 @@ def traverse_items(items, analysis):
     return analysis
 
 
-def analyze_variables(json_data):
-    
+def analyze_variables(json_data, analysis):
     variables = json_data["variable"]
     for variable in variables :
         key = variable["key"]

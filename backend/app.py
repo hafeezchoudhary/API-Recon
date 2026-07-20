@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS 
 from analyzer.postman_analyzer import analyze_collection
 from analyzer.postman_analyzer import analyze_summary
@@ -34,6 +34,12 @@ def upload() :
     generate_report(analysis)
 
     return jsonify(analysis) 
+
+
+@app.route("/download-report")
+def download_report():
+    return send_file("APILens_Report.pdf")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

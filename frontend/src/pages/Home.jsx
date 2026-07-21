@@ -7,17 +7,13 @@ export default function Home() {
     const [analysis, setAnalysis] = useState(null)
     const[Error, setError] = useState("") 
 
-    const handleFileChange = (e) => {
-        setSelectedFile(e.target.files[0])
-    } 
-
-    const handleUpload = async (e) => {
-        e.preventDefault()
-        if (!selectedFile) {
+    
+    const handleUpload = async (file) => {
+        if (!file) { 
             return alert("Select a file first")
         } 
         const formData = new FormData()
-        formData.append("file", selectedFile)
+        formData.append("file", file) 
 
         try {
             const response = await fetch("http://localhost:5000/upload", {
@@ -35,12 +31,16 @@ export default function Home() {
         
     }
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0]
+        setSelectedFile(file)
+        handleUpload(file)
+    } 
     return (
         <div>
             <h1>API-Lens</h1>  
             <div> 
-                    <input type="file" onChange={handleFileChange} accept='.json' /> 
-                    <button type="submit" onClick={handleUpload}>upload</button> 
+                <input type="file" onChange={handleFileChange} accept='.json' /> 
                 {analysis &&
                     <div>
                         <h2>Collection Information</h2>

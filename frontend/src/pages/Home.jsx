@@ -5,6 +5,7 @@ import { useState } from 'react'
 export default function Home() {
     const [selectedFile, setSelectedFile] = useState("")
     const [analysis, setAnalysis] = useState(null)
+    const [loading, setLoading] = useState(false)
     const[Error, setError] = useState("") 
 
     
@@ -16,13 +17,15 @@ export default function Home() {
         formData.append("file", file) 
 
         try {
+            setLoading(true)
             const response = await fetch("http://localhost:5000/upload", {
                 method: "POST",
                 body: formData
             })
 
             const data = await response.json()
-            setAnalysis(data) 
+            setAnalysis(data)
+            setLoading(false)
             
         } catch (e) {
             console.error('Error uploading file:', e)
@@ -46,6 +49,9 @@ export default function Home() {
             <h1>API-Lens</h1>  
             <div> 
                 <input type="file" onChange={handleFileChange} accept='.json' /> 
+                
+                {loading && <p>Analyzing Collection...</p>}
+
                 {analysis &&
                     <div>
                         <h2>Collection Information</h2>
@@ -128,10 +134,8 @@ export default function Home() {
                                 {res.code} : {res.status}
                             </div>
                         ))}
-
-
+    
                         <button onClick={downloadreport}>Download Report</button>
-
                     </div>
                 } 
             </div>

@@ -36,6 +36,11 @@ export default function Home() {
         setSelectedFile(file)
         handleUpload(file)
     } 
+
+    const downloadreport = () => {
+        window.open("http://localhost:5000/download-report")
+    }
+
     return (
         <div>
             <h1>API-Lens</h1>  
@@ -123,6 +128,9 @@ export default function Home() {
                                 {res.code} : {res.status}
                             </div>
                         ))}
+
+
+                        <button onClick={downloadreport}>Download Report</button>
 
                     </div>
                 } 

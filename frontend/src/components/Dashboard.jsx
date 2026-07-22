@@ -412,7 +412,7 @@ const Dashboard = ({ analysis }) => {
                             Collection Name
                         </p>
 
-                        <p className="text-sm text-white break-words">
+                        <p className="text-sm text-white wrap-break-word">
                             {analysis.collection.name}
                         </p>
                     </div>
@@ -432,7 +432,7 @@ const Dashboard = ({ analysis }) => {
                             Postman ID
                         </p>
 
-                        <p className="text-sm text-white break-words">
+                        <p className="text-sm text-white wrap-break-word">
                             {analysis.collection.postman_id}
                         </p>
                     </div>
@@ -498,7 +498,7 @@ const Dashboard = ({ analysis }) => {
 
                         {/* Rows */}
 
-                        <div className="max-h-[430px] overflow-y-auto">
+                        <div className="max-h-107.5 overflow-y-auto">
 
                             {paginatedEndpoints.map((endpoint, index) => {
 

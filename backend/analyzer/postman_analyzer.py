@@ -81,10 +81,6 @@ def traverse_items(items, analysis):
             analysis["methods"][method] += 1 
 
             url = item["request"]["url"]["raw"] 
-            analysis["endpoints"].append({
-                "method": method,
-                "url": url 
-            }) 
             
             headers = item["request"].get("header") 
             if headers :
@@ -134,6 +130,20 @@ def traverse_items(items, analysis):
                         "status": res["status"],
                         "code": res["code"],
                     })  
+
+            name = item.get("name")
+
+            auth_type = "NoAuth"
+
+            if request.get("auth"):
+                auth_type = request["auth"]["type"]
+
+            analysis["endpoints"].append({
+                "name": name,
+                "method": method,
+                "url": url,
+                "auth": auth_type
+            })
 
 
         if "item" in item :

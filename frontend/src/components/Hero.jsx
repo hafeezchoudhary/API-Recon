@@ -8,7 +8,7 @@ const Hero = ({ analysis, loading, selectedFile, handleFileChange }) => {
             <div className="space-y-3 mt-2">
 
                 <h1 className="text-4xl font-semibold text-white">
-                    APILens
+                    APIRecon
                 </h1>
 
                 <h2 className="text-xl text-zinc-200">
@@ -16,7 +16,7 @@ const Hero = ({ analysis, loading, selectedFile, handleFileChange }) => {
                 </h2>
 
                 <p className="max-w-5xl text-sm text-zinc-400 leading-7">
-                    APILens performs automated analysis of Postman collections to identify endpoints, authentication methods, sensitive data exposure, headers, query parameters, and API metadata.
+                    APIRecon performs automated analysis of Postman collections to identify endpoints, authentication methods, sensitive data exposure, headers, query parameters, and API metadata.
                 </p>
 
             </div>
@@ -39,7 +39,7 @@ const Hero = ({ analysis, loading, selectedFile, handleFileChange }) => {
 
                     <p className="mt-2 text-sm text-zinc-400">
                         {loading
-                            ? "Please wait while APILens analyzes your collection."
+                            ? "Please wait while APIRecon analyzes your collection."
                             : selectedFile
                                 ? "Your Postman collection has been successfully uploaded and analyzed."
                                 : "or click to browse — .json only, uploads automatically"}

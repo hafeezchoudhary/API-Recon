@@ -13,7 +13,7 @@ const Navbar = () => {
 
                         <div className="flex items-center gap-3">
                             <h1 className="text-2xl font-semibold text-white">
-                                APILens
+                                APIRecon
                             </h1>
 
                             <span className="flex items-center px-3 py-1 mt-1 rounded-md bg-gray-700 border border-zinc-700 text-zinc-400 text-xs font-medium tracking-wide">

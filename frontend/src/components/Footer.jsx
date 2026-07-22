@@ -9,7 +9,7 @@ const Footer = () => {
                     </p>
 
                     <p className="hidden md:block text-sm text-zinc-400">
-                        APILens v1.0
+                        APIRecon v1.0
                     </p>
 
                 </div>

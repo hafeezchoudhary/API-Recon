@@ -4,13 +4,13 @@ from reportlab.lib.styles import getSampleStyleSheet
 
 def generate_report(analysis):
 
-    doc = SimpleDocTemplate("APILens_Report.pdf")
+    doc = SimpleDocTemplate("APIRecon_Report.pdf")
     styles = getSampleStyleSheet()
 
     elements = []
 
     # Title
-    elements.append(Paragraph("APILens Report", styles["Title"]))
+    elements.append(Paragraph("APIRecon Report", styles["Title"]))
     elements.append(Spacer(1, 12))
 
     # Collection Information

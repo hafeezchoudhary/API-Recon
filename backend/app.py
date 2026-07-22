@@ -49,7 +49,7 @@ def download_report():
         path,
         mimetype="application/pdf",
         as_attachment=True,
-        download_name="APILens_Report.pdf"
+        download_name="APIRecon_Report.pdf"
     )
 
 

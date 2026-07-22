@@ -65,7 +65,7 @@ const Hero = ({ analysis, loading, selectedFile, handleFileChange }) => {
             {/* Empty State */}
 
             {!analysis && (
-                <div className="mt-6 border border-[#253244] bg-[#0E1827] rounded-xl min-h-55 flex flex-col items-center justify-center text-center px-6">
+                <div className="mt-6 border border-[#253244] bg-[#0E1827] rounded-xl min-h-55 flex flex-col items-center justify-center text-center px-6 mb-5">
 
                     <div className="h-14 w-14 rounded-full bg-zinc-800 flex items-center justify-center mb-5">
                         <FiInbox size={24} className="text-zinc-300" />

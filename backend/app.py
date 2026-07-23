@@ -15,7 +15,7 @@ CORS(app)
 def home() :
     return {
         "status": "running",
-        "message": "APILens Backend is running successfully!"
+        "message": "APRecon Backend is running successfully!"
     }
 
 @app.route("/upload", methods=["GET", "POST"])
@@ -51,7 +51,6 @@ def download_report():
         as_attachment=True,
         download_name="APIRecon_Report.pdf"
     )
-
 
 if __name__ == "__main__":
     app.run(

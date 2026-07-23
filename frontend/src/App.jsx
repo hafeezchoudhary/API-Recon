@@ -61,7 +61,7 @@ function App() {
       const link = document.createElement("a");
 
       link.href = url;
-      link.download = "APILens_Report.pdf";
+      link.download = "APIRecon_Report.pdf";
 
       document.body.appendChild(link);
 

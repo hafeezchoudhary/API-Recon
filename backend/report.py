@@ -73,7 +73,12 @@ def generate_report(analysis):
     elements.append(Spacer(1, 12))
 
     # Variables
-    elements.append(Paragraph("Variables", styles["Heading2"]))
+    elements.append(
+        Paragraph(
+            "Variables",
+            styles["Heading2"]
+        )
+    )
 
     elements.append(
         Paragraph(
@@ -81,11 +86,19 @@ def generate_report(analysis):
             styles["Normal"]
         )
     )
-    elements.append(Paragraph("keys: ", styles["Normal"]))
-    for key in analysis["variables"]["name"]:
+
+    elements.append(
+        Paragraph(
+            "Keys:",
+            styles["Normal"]
+        )
+    )
+
+    for variable in analysis["variables"]["items"]:
+
         elements.append(
             Paragraph(
-                f"-{key}",
+                f'- {variable["key"]}: {variable["value"]}',
                 styles["Normal"]
             )
         )

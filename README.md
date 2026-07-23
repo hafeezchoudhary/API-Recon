@@ -130,18 +130,6 @@ APIRecon generates downloadable PDF reports containing:
 
 ---
 
-## Future Improvements
-
-- OpenAPI Support
-- Swagger Support
-- Risk Scoring
-- Security Recommendations
-- CSV Export
-- Collection Comparison
-- User Authentication
-
----
-
 ## Security Notice
 
 APIRecon performs static analysis on uploaded Postman collections. It does not execute any user-provided code or make requests to external APIs.

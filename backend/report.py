@@ -1,4 +1,3 @@
-from datetime import datetime
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -230,7 +229,6 @@ def generate_report(analysis):
 
     # Collection Metadata Block
     col_info = analysis.get("collection", {})
-    gen_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     meta_data = [
         [
@@ -250,10 +248,6 @@ def generate_report(analysis):
             Paragraph(
                 str(col_info.get("schema", "N/A")), styles["CoverMetaValue"]
             ),
-        ],
-        [
-            Paragraph("Generated Date:", styles["CoverMetaLabel"]),
-            Paragraph(gen_time, styles["CoverMetaValue"]),
         ],
     ]
 

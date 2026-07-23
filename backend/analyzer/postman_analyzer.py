@@ -36,7 +36,7 @@ def create_analysis() :
         },
         "variables": {
             "count": 0,
-            "name": [],
+            "items": [],
         },
         "endpoints": [],
         "headers": {},
@@ -66,6 +66,7 @@ def analyze_collection(json_data, analysis) :
 
 
 def analyze_summary(json_data, analysis):
+
     items = json_data["item"]
     traverse_items(items, analysis) 
     
@@ -75,11 +76,8 @@ def analyze_summary(json_data, analysis):
 def traverse_items(items, analysis):
 
     for item in items:
-
         if "request" in item:
-
             request = item["request"]
-
             analysis["summary"]["total_requests"] += 1
 
             method = request["method"]
@@ -94,9 +92,7 @@ def traverse_items(items, analysis):
             headers = request.get("header")
 
             if headers:
-
                 for header in headers:
-
                     header_key = header["key"]
 
                     if header_key in analysis["headers"]:
@@ -104,15 +100,9 @@ def traverse_items(items, analysis):
                     else:
                         analysis["headers"][header_key] = 1
 
-                    header_normalized = (
-                        header_key
-                        .lower()
-                        .replace("-", "_")
-                        .replace(" ", "_")
-                    )
+                    header_normalized = (header_key.lower().replace("-", "_").replace(" ", "_"))
 
                     if header_normalized in sensitive_keywords:
-
                         add_sensitive_data(
                             analysis,
                             {
@@ -131,9 +121,7 @@ def traverse_items(items, analysis):
             query = request["url"].get("query")
 
             if query:
-
                 for param in query:
-
                     if param.get("disabled"):
                         continue
 
@@ -144,21 +132,10 @@ def traverse_items(items, analysis):
                     else:
                         analysis["query_parameters"][query_key] = 1
 
-                    query_normalized = (
-                        query_key
-                        .lower()
-                        .replace("-", "_")
-                        .replace(" ", "_")
-                    )
+                    query_normalized = (query_key.lower().replace("-", "_").replace(" ", "_"))
 
                     if query_normalized in sensitive_keywords:
-
-                        severity = (
-                            "Medium"
-                            if query_normalized == "token"
-                            else "High"
-                        )
-
+                        severity = ("Medium" if query_normalized == "token" else "High")
                         add_sensitive_data(
                             analysis,
                             {
@@ -177,34 +154,17 @@ def traverse_items(items, analysis):
             body = request.get("body")
 
             if body:
-
-                # RAW JSON BODY
-
                 raw = body.get("raw")
-
                 if raw:
-
                     try:
                         raw_dict = json.loads(raw)
                     except:
                         raw_dict = {}
-
                     for raw_key in raw_dict:
+                        body_normalized = (raw_key.lower().replace("-", "_").replace(" ", "_"))
 
-                        body_normalized = (
-                            raw_key
-                            .lower()
-                            .replace("-", "_")
-                            .replace(" ", "_")
-                        )
-
-                        if body_normalized in sensitive_keywords:
-
-                            severity = (
-                                "Medium"
-                                if body_normalized == "token"
-                                else "High"
-                            )
+                        if body_normalized in sensitive_keywords: 
+                            severity = ("Medium" if body_normalized == "token" else "High")
 
                             add_sensitive_data(
                                 analysis,
@@ -222,20 +182,11 @@ def traverse_items(items, analysis):
                 urlencoded = body.get("urlencoded")
 
                 if urlencoded:
-
                     for field in urlencoded:
-
                         field_key = field["key"]
-
-                        normalized = (
-                            field_key
-                            .lower()
-                            .replace("-", "_")
-                            .replace(" ", "_")
-                        )
+                        normalized = (field_key.lower().replace("-", "_").replace(" ", "_"))
 
                         if normalized in sensitive_keywords:
-
                             add_sensitive_data(
                                 analysis,
                                 {
@@ -254,13 +205,9 @@ def traverse_items(items, analysis):
             auth = request.get("auth")
 
             if auth:
-
                 auth_type = auth.get("type")
-
                 analysis["authentication"][auth_type] += 1
-
             else:
-
                 analysis["authentication"]["noauth"] += 1
 
             # -------------------------
@@ -270,9 +217,7 @@ def traverse_items(items, analysis):
             response = item.get("response")
 
             if response:
-
                 for res in response:
-
                     analysis["response"].append({
                         "status": res["status"],
                         "code": res["code"]
@@ -301,9 +246,7 @@ def traverse_items(items, analysis):
         # -------------------------
 
         if "item" in item:
-
             analysis["summary"]["total_folders"] += 1
-
             traverse_items(
                 item["item"],
                 analysis
@@ -317,13 +260,13 @@ def analyze_variables(json_data, analysis):
     variables = json_data.get("variable")
     if variables :
         for variable in variables:
-
             key = variable["key"]
-
             if key:
-
                 analysis["variables"]["count"] += 1
-                analysis["variables"]["name"].append(key)
+                analysis["variables"]["items"].append({
+                    "key": variable["key"],
+                    "value": variable.get("value", "-")
+                })
 
     return analysis
 
@@ -331,7 +274,6 @@ def analyze_variables(json_data, analysis):
 def add_sensitive_data(analysis, data):
 
     for item in analysis["sensitive_data"]:
-
         if item["key"] == data["key"]:
             return
 

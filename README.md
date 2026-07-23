@@ -109,7 +109,7 @@ Sensitive Findings:
 ## PDF Reports
 
 APIRecon generates downloadable PDF reports containing:
-
+ 
 - Collection Information
 - Request Summary
 - Method Breakdown

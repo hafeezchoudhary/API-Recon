@@ -156,6 +156,6 @@ MIT License
 
 ## Author
 
-Developed by **Your Name**
+Developed by **Hafeez Choudhary**
 
-GitHub: `https://github.com/your-username`
+GitHub: `https://github.com/hafeezchoudhary`
